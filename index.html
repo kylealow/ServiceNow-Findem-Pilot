@@ -176,7 +176,7 @@
       <input type="text" class="other-text" id="slate-other-txt" placeholder="Please specify…" style="display:none;margin-top:10px;margin-left:0;width:100%;" oninput="ans['time_to_slate_other']=this.value">
       <div class="err-msg">Please select an option.</div>
     </div>
-    <div class="nav"><button class="btn" onclick="goTo(1,[])">← Back</button><span class="nav-meta">Step 3 of 5</span><button class="btn btn-primary" onclick="goTo(3,['pipeline_quality','time_to_slate'])">Continue →</button></div>
+    <div class="nav"><button class="btn" onclick="goTo(1,[])">← Back</button><span class="nav-meta">Step 3 of 5</span><button class="btn btn-primary" onclick="goTo(3, ans['role']==='Sourcer' ? ['pipeline_quality'] : ['pipeline_quality','time_to_slate'])">Continue →</button></div>
   </div>
 
   <!-- PAGE 4: Pain points -->
@@ -300,12 +300,17 @@ function pickPill(gid, key, el) {
   if (block) block.classList.remove("error");
   if (key === "role") {
     const reqBlock = document.getElementById("qb-req_load");
+    const slateBlock = document.getElementById("qb-time_to_slate");
     if (ans["role"] === "Sourcer") {
       reqBlock.style.display = "none";
       ans["req_load"] = "N/A - Sourcer";
+      slateBlock.style.display = "none";
+      ans["time_to_slate"] = "N/A - Sourcer";
     } else {
       reqBlock.style.display = "block";
+      slateBlock.style.display = "block";
       if (ans["req_load"] === "N/A - Sourcer") ans["req_load"] = undefined;
+      if (ans["time_to_slate"] === "N/A - Sourcer") ans["time_to_slate"] = undefined;
     }
   }
 }
